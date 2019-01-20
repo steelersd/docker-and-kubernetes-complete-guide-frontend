@@ -1,0 +1,17 @@
+# docker build -t steelersd/frontend:latest -f Dockerfile.dev .
+
+# If we want 'Hot Reload', we can create a volume to our
+# current directory.
+# docker run -p 3000:3000 -v $(pwd):/app  steelersd/frontend
+
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN npm install
+COPY . ./
+
+RUN npm install
+
+CMD ["npm", "run", "start"]

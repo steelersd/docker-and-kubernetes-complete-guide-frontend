@@ -1,0 +1,25 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # - /app/node_modules We would use this if node_modules was in the container
+      # We're using .dockerignore to manage mode_modules
+      - .:/app
+  tests:
+    # Added stdin_open and tty per the udemy comments. Still can't interact with the
+    # test commands...
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      # - /app/node_modules We would use this if node_modules was in the container
+      # We're using .dockerignore to manage mode_modules
+      - .:/app
+    command: ["npm", "run", "test"]

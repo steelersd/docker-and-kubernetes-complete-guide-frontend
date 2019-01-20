@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t steelersd/frontend -f Dockerfile.dev .
+
+# I think -- means, --coverage is an argument for test, not npm.
+script:
+  - docker run steelersd/frontend npm run test -- --coverage
