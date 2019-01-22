@@ -8,3 +8,15 @@ before_install:
 # I think -- means, --coverage is an argument for test, not npm.
 script:
   - docker run steelersd/frontend npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: udemy-docker-frontend
+  env: UdemyDockerFrontend-env
+  bucket_name: elasticbeanstalk-us-east-2-854836931922
+  bucket_path: udemy-docker-frontend
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
