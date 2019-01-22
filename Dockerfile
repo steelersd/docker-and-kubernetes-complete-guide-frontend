@@ -9,6 +9,7 @@ COPY . ./
 RUN npm run build
 
 FROM nginx
+EXPOSE 80
 COPY --from=builder app/build usr/share/nginx/html
 # Note: The dafault command for nginx is to start, no need for RUN 
 
